@@ -2,27 +2,25 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import cookieParser from "cookie-parser";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { connectToDatabase, ObjectId } from './database.js';
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser"
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
-
-app.use(cookieParser());
 app.use(express.json());
-
-// Enable preflight requests for all routes
-app.options('*', cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
-
+app.use(cookieParser());
+app.use(
+	cors({
+		origin:process.env.FRONTEND_URL,
+		credentials:true,
+	})
+)
 let db;
 
 connectToDatabase().then(collections => {
