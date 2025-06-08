@@ -2,6 +2,7 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
+import cookieParser from "cookie-parser";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { connectToDatabase, ObjectId } from './database.js';
@@ -12,6 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(
 	cors({
