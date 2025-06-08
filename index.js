@@ -15,7 +15,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 app.use(express.json());
 app.use(
 	cors({
-		origin:"*",
+		origin:process.env.FRONTEND_URL,
 		credentials:true,
 	})
 )
