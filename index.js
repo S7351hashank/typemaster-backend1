@@ -16,12 +16,13 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-	cors({
-		origin:process.env.FRONTEND_URL,
-		credentials:true,
-	})
-)
+
+// Enable preflight requests for all routes
+app.options('*', cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
+
 let db;
 
 connectToDatabase().then(collections => {
